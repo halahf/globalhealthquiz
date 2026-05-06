@@ -491,6 +491,11 @@ body.night .flagBtn.flagged{background:rgba(245,158,11,.2);border-color:rgba(245
             <div class="bulkToolDesc">Removes all permanent edits and restores the original hardcoded questions and answers.</div>
             <div class="sBtnRow"><button class="sBtnDanger" onclick="resetAllOverrides()">Reset Everything</button></div>
           </div>
+          <div class="bulkToolCard">
+            <div class="bulkToolTitle">🧹 Clear Cached Questions</div>
+            <div class="bulkToolDesc">Clears old localStorage question cache. Use this if hardcoded changes aren't showing up correctly.</div>
+            <div class="sBtnRow"><button class="sBtnDanger" onclick="clearQuestionCache()">Clear Cache</button></div>
+          </div>
         </div>
       </div>
       <!-- ANALYTICS TAB -->
@@ -714,7 +719,7 @@ const DEFAULT_QUESTIONS=[
 {"sectionId":1,"q":"Prior to 1960, dengue fever was largely concentrated in which two regions?","options":["North America and Europe", "Sub-Saharan Africa and South Asia", "Southeast Asia and the coast of South America", "East Asia and the Middle East", "Oceania and Central America"],"answer":2},
 {"sectionId":1,"q":"Why is the \"shrinking world\" a concern for global health?","options":["It reduces the cost of vaccines", "Diseases are no longer limited by national boundaries", "It makes climate change irrelevant", "It eliminates the need for international cooperation", "It causes life expectancy to decrease"],"answer":1},
 {"sectionId":1,"q":"According to the U.S. Institute of Medicine, global health is defined as health problems that:","options":["Are only found in low-income countries", "Can be solved by individual nations alone", "Transcend national boundaries and require cooperative actions", "Focus exclusively on clinical care", "Relate only to infectious diseases"],"answer":2},
-{"sectionId":1,"q":"Which concept describes the synthesis of population-based prevention with individual-level clinical care?","options":["International Health", "Tropical Medicine", "Public Health", "Global Health", "Social Medicine"],"answer":4},
+{"sectionId":1,"q":"Which concept describes the synthesis of population-based prevention with individual-level clinical care?","options":["International Health", "Tropical Medicine", "Public Health", "Global Health", "Social Medicine"],"answer":3},
 {"sectionId":1,"q":"Public Health as a discipline developed primarily in the mid-19th century in which regions?","options":["Asia and Africa", "Latin America and the Caribbean", "UK, Europe, and the US", "Australia and New Zealand", "Middle East and North Africa"],"answer":2},
 {"sectionId":1,"q":"Historically, International Health tended to denote:","options":["A collaborative partnership between all nations", "A one-way flow of good ideas from rich to poor countries", "Focus on noncommunicable diseases in high-income countries", "A focus purely on national issues", "The eradication of smallpox"],"answer":1},
 {"sectionId":1,"q":"Which of the following is NOT listed as a discipline involved in Global Health?","options":["Law", "Engineering", "Economics", "History", "Astrology"],"answer":4},
@@ -732,10 +737,10 @@ const DEFAULT_QUESTIONS=[
 {"sectionId":1,"q":"Which biological feature made smallpox suitable for eradication?","options":["It was spread by mosquitoes", "It had asymptomatic carriers", "It spread only between humans", "Survivors had no immunity", "Symptoms were very difficult to diagnose"],"answer":2},
 {"sectionId":1,"q":"According to the Central Messages, health status is determined by which variety of factors?","options":["Genetic makeup and age", "Income and education", "Social status and sex", "Access to health services", "All of the above"],"answer":4},
 {"sectionId":1,"q":"To set effective health policy, the lecture suggests thinking more like which government official?","options":["Minister of Defence", "Minister of Health", "Minister of Finance", "Minister of Education", "Minister of Agriculture"],"answer":2},
-{"sectionId":1,"q":"Much of the health progress in the last 50 years is attributed to:","options":["Improvements in public hygiene and water supply", "Increased nutritional status", "Better education", "Technical progress like vaccines and antibiotics", "All of the above"],"answer":5},
+{"sectionId":1,"q":"Much of the health progress in the last 50 years is attributed to:","options":["Improvements in public hygiene and water supply", "Increased nutritional status", "Better education", "Technical progress like vaccines and antibiotics", "All of the above"],"answer":4},
 {"sectionId":1,"q":"Which region still has a burden of disease that is predominantly communicable?","options":["South Asia", "Latin America", "Sub-Saharan Africa", "Middle East", "East Asia"],"answer":2},
 {"sectionId":1,"q":"In most other regions of the world, the burden of disease is predominantly:","options":["Communicable", "Noncommunicable", "Injury-related", "Nutritional", "Genetic"],"answer":1},
-{"sectionId":1,"q":"Which of the following countries/areas is NOT cited as an example of achieving good health despite low income?","options":["Costa Rica", "Cuba", "Sri Lanka", "Kerala state (India).", "United States"],"answer":4},
+{"sectionId":1,"q":"Which of the following countries/areas is NOT cited as an example of achieving good health despite low income?","options":["Costa Rica", "Cuba", "Sri Lanka", "Kerala state (Indi", "United States"],"answer":4},
 {"sectionId":1,"q":"The goal for low-income countries should be to bury:","options":["Young people instead of old people", "Old people instead of young people", "No one at all", "Only those with infectious diseases", "More people to control population"],"answer":1},
 {"sectionId":1,"q":"The spread of which disease in West Africa recently brought major attention to global health?","options":["SARS", "Avian flu", "Ebola", "Malaria", "Zika"],"answer":2},
 {"sectionId":1,"q":"Poor health of mothers is directly linked to:","options":["High stock market volatility", "Failure of children to reach full mental and physical potential", "Increased rainfall", "Reduced urbanization", "Higher levels of engineering"],"answer":1},
@@ -746,12 +751,12 @@ const DEFAULT_QUESTIONS=[
 {"sectionId":1,"q":"Why was flexibility essential in the smallpox campaign?","options":["Because the vaccine was liquid", "Because national campaigns differed", "Because the virus mutated every day", "Because the bifurcated needle was fragile", "Because donors kept changing their minds"],"answer":1},
 {"sectionId":1,"q":"Which group is specifically mentioned as facing unique challenges to their health?","options":["High-income earners", "Urban dwellers", "Ethnic majorities", "LGBT people and prisoners", "Minister of Finance"],"answer":3},
 {"sectionId":1,"q":"Achieving good health in low-income settings requires:","options":["High financial resources", "Extensive hospitals in every village", "Strong political will and focus on public hygiene", "A focus on curative care over prevention", "Eradication of all noncommunicable diseases first"],"answer":2},
-{"sectionId":1,"q":"Regarding the Central Messages of the lecture, why should a health policy maker think and act more like a Minister of Finance than a traditional Minister of Health?","options":["Because health status is determined by a wide range of factors, including economic and social conditions and government policies beyond the medical sector.", "To ensure that all health workers are paid the highest possible salaries.", "To prioritize the privatization of all public health services.", "Because medical science has reached its limit and only financial management matters now.", "To focus exclusively on the health of wealthy urban residents."],"answer":1},
-{"sectionId":1,"q":"In the absence of new major threats, the global burden of disease is expected to shift toward:","options":["Communicable disease", "Nutritional deficiencies", "Noncommunicable disease", "Maternal health issues", "Neglected tropical diseases"],"answer":3},
-{"sectionId":1,"q":"Which of the following is an example of a global health issue addressed through cooperation?","options":["Polio eradication", "Tobacco control", "Containment of COVID-19", "Humanitarian emergencies", "All of the above"],"answer":5},
-{"sectionId":1,"q":"Public health traditionally emphasizes:","options":["Cure over prevention", "Prevention over cure", "Individual care over population health", "National boundaries over social justice", "High-cost interventions"],"answer":2},
+{"sectionId":1,"q":"The value for money question in health policy asks how to spend:","options":["$1 million", "$10,000", "$1,000", "$100", "$1"],"answer":4},
+{"sectionId":1,"q":"In the absence of new major threats, the global burden of disease is expected to shift toward:","options":["Communicable disease", "Nutritional deficiencies", "Noncommunicable disease", "Maternal health issues", "Neglected tropical diseases"],"answer":1},
+{"sectionId":1,"q":"Which of the following is an example of a global health issue addressed through cooperation?","options":["Polio eradication", "Tobacco control", "Containment of COVID-19", "Humanitarian emergencies", "All of the above"],"answer":1},
+{"sectionId":1,"q":"Public health traditionally emphasizes:","options":["Cure over prevention", "Prevention over cure", "Individual care over population health", "National boundaries over social justice", "High-cost interventions"],"answer":3},
 {"sectionId":1,"q":"Which region is part of the WHO classification?","options":["East Asia and Pacific", "Eastern Mediterranean", "Latin America and the Caribbean", "Middle East and North Africa", "Central Asia"],"answer":1},
-{"sectionId":1,"q":"What was the estimated economic loss for India alone due to smallpox being endemic?","options":["$23 million", "$98 million", "$500 million", "$1 billion", "$200 million"],"answer":4},
+{"sectionId":1,"q":"What was the estimated economic loss for India alone due to smallpox being endemic?","options":["$23 million", "$98 million", "$500 million", "$1 billion", "$200 million"],"answer":1},
 {"sectionId":1,"q":"Global health emphasizes equity, which means:","options":["Everyone gets the exact same medicine", "Improving health for all people worldwide", "Only treating those who can afford it", "Focusing only on high-income nations", "Investing only in biomedical sciences"],"answer":1},
 {"sectionId":1,"q":"The health goal for all countries is to enable their people, at least cost, to:","options":["Work 24 hours a day", "Enjoy a healthy life for as long as possible", "Avoid all social sciences", "Move to high-income countries", "Use the bifurcated needle"],"answer":1},
 {"sectionId":2,"q":"According to the lecture, the Global Burden of Disease (GBD) framework is best defined as:","options":["A method for counting the total number of doctors globally.", "A comprehensive measure of mortality, morbidity, and disability.", "A system for tracking hospital expenditure in high-income countries.", "A measure focused exclusively on infectious disease outbreaks.", "A framework that ignores disability to focus on death."],"answer":1},
@@ -760,7 +765,7 @@ const DEFAULT_QUESTIONS=[
 {"sectionId":2,"q":"Why did traditional mortality-focused statistics underestimate the total burden of certain diseases?","options":["They ignored diseases that cause disability but not death.", "They were too expensive to collect.", "They only counted infectious diseases.", "They over-represented chronic conditions.", "They ignored the impact of accidents."],"answer":0},
 {"sectionId":2,"q":"Which of the following is NOT one of the three components measured by the GBD framework?","options":["Premature mortality.", "Disability.", "Years of healthy life lost.", "Hospital bed occupancy rates.", "Morbidity."],"answer":3},
 {"sectionId":2,"q":"The Global Health Observatory (GHO) provides critical data on which of the following?","options":["Only infectious disease incidence.", "Mortality, risk factors, and health system performance.", "Pharmaceutical stock market trends.", "Global weather patterns impacting health.", "Individual patient medical records."],"answer":1},
-{"sectionId":2,"q":"Which institution conducts the Global Burden of Disease Study?","options":["The World Bank.", "The Institute for Health Metrics and Evaluation (IHME)", "The Centers for Disease Control (CDC)", "The International Monetary Fund (IMF).", "The Red Cross."],"answer":2},
+{"sectionId":2,"q":"Which institution conducts the Global Burden of Disease Study?","options":["The World Bank.", "The Institute for Health Metrics and Evaluation (IHM", ".", "The Centers for Disease Control (CD", ".", "The International Monetary Fund (IMF).", "The Red Cross."],"answer":1},
 {"sectionId":2,"q":"The GBD Study is considered one of the largest health data analysis efforts because it covers:","options":["More than 200 countries.", "Only high-income nations.", "Infectious diseases only.", "Data from the last five years only.", "Only cardiovascular diseases."],"answer":0},
 {"sectionId":2,"q":"The \"Epidemiological Transition\" refers to a shift from:","options":["Chronic diseases to infectious diseases.", "High mortality to low mortality in young populations only.", "Infectious disease dominance to chronic disease dominance.", "Rural healthcare to urban healthcare.", "Physical inactivity to high-intensity exercise."],"answer":2},
 {"sectionId":2,"q":"What is the primary driver of the epidemiological transition?","options":["Climate change.", "Socioeconomic development.", "Decreased life expectancy.", "Increased infectious disease virulence.", "Reduced urbanization."],"answer":1},
@@ -785,7 +790,7 @@ const DEFAULT_QUESTIONS=[
 {"sectionId":2,"q":"In the context of DALYs, \"YLL\" refers to:","options":["Yearly Life Length.", "Years of Life Lost (premature mortality).", "Youth Life Loss.", "Yield of Life Limits.", "Yearly Longevity Levels."],"answer":1},
 {"sectionId":2,"q":"In the context of DALYs, \"YLD\" refers to:","options":["Yearly Loss of Diet.", "Years Lived with Disability.", "Young Life Disability.", "Yearly Life Decline.", "Yield of Life Duration."],"answer":1},
 {"sectionId":2,"q":"One DALY represents:","options":["One year of life in perfect health.", "One lost year of healthy life.", "One thousand deaths.", "One percent of a population's disability.", "One year of healthcare coverage."],"answer":1},
-{"sectionId":2,"q":"If a disease causes 1,000 DALYs in a population, it means:","options":["1,000 people have died.", "1,000 years of healthy life have been lost.", "1,000 people are currently in the hospital.", "The disease is 1,000% more dangerous than others.", "1,000 people have been cured."],"answer":2},
+{"sectionId":2,"q":"If a disease causes 1,000 DALYs in a population, it means:","options":["1,000 people have died.", "1,000 years of healthy life have been lost.", "1,000 people are currently in the hospital.", "The disease is 1,000% more dangerous than others.", "1,000 people have been cured."],"answer":0},
 {"sectionId":2,"q":"DALYs are widely used by policymakers to:","options":["Prioritize health interventions.", "Calculate the total population of a country.", "Determine the age of retirement.", "Track global carbon emissions.", "Predict future infectious outbreaks only."],"answer":0},
 {"sectionId":2,"q":"Quality Adjusted Life Years (QALYs) measure:","options":["Health losses.", "Both quality and quantity of life (health gains).", "Only the number of years lived.", "Only the severity of a disability.", "The cost of a medical procedure."],"answer":1},
 {"sectionId":2,"q":"One QALY represents:","options":["One year of life with a disability.", "One year of life in perfect health.", "One year of life lost to premature death.", "A 10% improvement in health.", "One year of medical treatment."],"answer":1},
@@ -815,7 +820,7 @@ const DEFAULT_QUESTIONS=[
 {"sectionId":3,"q":"In the visual model of health determinants, which of the following is considered an \"Individual Characteristic\"?","options":["Governance", "Genetic make-up", "Access to health services", "Employment conditions", "Social environment"],"answer":1},
 {"sectionId":3,"q":"Which of the following is categorized as a \"Social Determinant\" in the lecture?","options":["Air quality", "Social support networks", "Genetic mutations", "Annual rainfall", "Soil toxicity"],"answer":1},
 {"sectionId":3,"q":"Why are individuals with higher education levels more likely to have better health outcomes?","options":["They are genetically superior.", "They are more likely to understand health information and adopt healthier lifestyles.", "They are immune to environmental hazards.", "They do not require medical services.", "Education provides a biological barrier to infection."],"answer":1},
-{"sectionId":3,"q":"Economic conditions affect health through several pathways. Which of these is NOT mentioned in the source?","options":["Access to nutritious food", "Quality housing", "Safe working environments", "Access to healthcare services", "Genetic engineering capabilities"],"answer":5},
+{"sectionId":3,"q":"Economic conditions affect health through several pathways. Which of these is NOT mentioned in the source?","options":["Access to nutritious food", "Quality housing", "Safe working environments", "Access to healthcare services", "Genetic engineering capabilities"],"answer":1},
 {"sectionId":3,"q":"Societies with large income inequalities often experience:","options":["Lower rates of infectious disease.", "Greater health inequalities.", "Improved social cohesion.", "Uniform life expectancy across all classes.", "Reduced environmental risks."],"answer":1},
 {"sectionId":3,"q":"Environmental determinants of health include both:","options":["Physical and mental health.", "Natural and built environments.", "Rural and agricultural zones only.", "Genetic and epigenetic factors.", "Domestic and international policies."],"answer":1},
 {"sectionId":3,"q":"According to the source, how many premature deaths are caused by air pollution worldwide each year?","options":["Hundreds", "Thousands", "Millions", "Billions", "It is not a significant cause of death."],"answer":2},
@@ -1307,25 +1312,43 @@ const DEFAULT_QUESTIONS=[
 ];
 
 /* ── PERSISTENCE ── */
-// loadOverrides defined in persistence section
-// saveOverrides defined in persistence section
+function loadOverrides(){const d=localStorage.getItem("mph_overrides");return d?JSON.parse(d):{};}
+function saveOverrides(o){localStorage.setItem("mph_overrides",JSON.stringify(o));}
+function loadSecretQ(){const d=localStorage.getItem("mph_secret_q");return d?JSON.parse(d):[];}
+function saveSecretQ(q){localStorage.setItem("mph_secret_q",JSON.stringify(q));}
+function loadHidden(){const d=localStorage.getItem("mph_hidden");return d?JSON.parse(d):{};}
+function saveHidden(h){localStorage.setItem("mph_hidden",JSON.stringify(h));}
+function loadCritical(){const d=localStorage.getItem("mph_critical");return d?JSON.parse(d):{};}
+function saveCritical(c){localStorage.setItem("mph_critical",JSON.stringify(c));}
+function loadSecretOrder(){const d=localStorage.getItem("mph_order");return d?JSON.parse(d):{};}
+function saveSecretOrder(o){localStorage.setItem("mph_order",JSON.stringify(o));}
 function loadQ(){
   const ovr=loadOverrides();
   const hiddenMap=loadHidden();
   const critMap=loadCritical();
   const hardcoded=DEFAULT_QUESTIONS.map((x,i)=>({...x,id:"d"+i}));
-  // Apply all overrides to hardcoded questions
-  let base=hardcoded.map(q=>{
-    const ovrKey="q_"+q.sectionId+"_"+q.q.slice(0,30);
+  // Stable key: based on position in DEFAULT_QUESTIONS array
+  let base=hardcoded.map((q,i)=>{
+    const stableKey="didx_"+i; // stable index key — never changes
+    const legacyKey="q_"+q.sectionId+"_"+q.q.slice(0,30); // old key for backward compat
     const qk=q.sectionId+"__"+q.q.slice(0,50);
-    if(ovr[qk+"_deleted"]||hiddenMap[qk])return null; // deleted/hidden
+    if(ovr[qk+"_deleted"]||hiddenMap[qk])return null;
     let out={...q};
-    if(ovr[ovrKey]!==undefined)out.answer=ovr[ovrKey]; // answer override
-    if(ovr[ovrKey+"_qtext"])out.q=ovr[ovrKey+"_qtext"]; // question text override
-    if(ovr[ovrKey+"_move"])out.sectionId=ovr[ovrKey+"_move"]; // section move
-    // option text overrides
+    // Answer: prefer stable key, fall back to legacy key
+    if(ovr[stableKey]!==undefined)out.answer=ovr[stableKey];
+    else if(ovr[legacyKey]!==undefined)out.answer=ovr[legacyKey];
+    // Question text override
+    if(ovr[stableKey+"_qtext"])out.q=ovr[stableKey+"_qtext"];
+    else if(ovr[legacyKey+"_qtext"])out.q=ovr[legacyKey+"_qtext"];
+    // Move to different section
+    if(ovr[stableKey+"_move"])out.sectionId=ovr[stableKey+"_move"];
+    else if(ovr[qk+"_move"])out.sectionId=ovr[qk+"_move"];
+    // Option text overrides
     out.options=[...q.options];
-    q.options.forEach((_,j)=>{if(ovr[ovrKey+"_opt"+j]!==undefined)out.options[j]=ovr[ovrKey+"_opt"+j];});
+    q.options.forEach((_,j)=>{
+      if(ovr[stableKey+"_opt"+j]!==undefined)out.options[j]=ovr[stableKey+"_opt"+j];
+      else if(ovr[legacyKey+"_opt"+j]!==undefined)out.options[j]=ovr[legacyKey+"_opt"+j];
+    });
     if(critMap[qk])out._critical=true;
     return out;
   }).filter(Boolean);
@@ -1335,10 +1358,12 @@ function loadQ(){
   // Apply localStorage user-added (non-hardcoded)
   const stored=localStorage.getItem("mph_q2");
   if(stored){
-    const existing=JSON.parse(stored);
-    const hardcodedTexts=new Set(hardcoded.map(q=>q.q.trim().toLowerCase()));
-    const userAdded=existing.filter(q=>!q.id.startsWith("d")&&!hardcodedTexts.has(q.q.trim().toLowerCase()));
-    base=[...base,...userAdded];
+    try{
+      const existing=JSON.parse(stored);
+      const hardcodedTexts=new Set(hardcoded.map(q=>q.q.trim().toLowerCase()));
+      const userAdded=existing.filter(q=>!q.id.startsWith("d")&&!hardcodedTexts.has(q.q.trim().toLowerCase()));
+      base=[...base,...userAdded];
+    }catch(e){}
   }
   // Sort: critical questions first within their section
   base.sort((a,b)=>{
@@ -2064,22 +2089,6 @@ function promptSecret(){
   else{showToast("Incorrect password","🔒");}
 }
 
-function loadOverrides(){const d=localStorage.getItem("mph_overrides");return d?JSON.parse(d):{};}
-function saveOverrides(o){localStorage.setItem("mph_overrides",JSON.stringify(o));}
-
-function loadSecretQ(){
-  // Returns base hardcoded + user permanent additions + overrides applied
-  const d=localStorage.getItem("mph_secret_q");
-  return d?JSON.parse(d):[];
-}
-function saveSecretQ(q){localStorage.setItem("mph_secret_q",JSON.stringify(q));}
-function loadHidden(){const d=localStorage.getItem("mph_hidden");return d?JSON.parse(d):{};}
-function saveHidden(h){localStorage.setItem("mph_hidden",JSON.stringify(h));}
-function loadCritical(){const d=localStorage.getItem("mph_critical");return d?JSON.parse(d):{};}
-function saveCritical(c){localStorage.setItem("mph_critical",JSON.stringify(c));}
-function loadSecretOrder(){const d=localStorage.getItem("mph_order");return d?JSON.parse(d):{};}
-function saveSecretOrder(o){localStorage.setItem("mph_order",JSON.stringify(o));}
-
 let secretTab="questions";
 let secretDragSrc=null;
 
@@ -2173,7 +2182,10 @@ function renderSecretList(){
   const show=qs.slice(0,60);
   show.forEach((q,i)=>{
     const key=qKey(q);
-    const ovrKey="q_"+q.sectionId+"_"+q.q.slice(0,30);
+    // Find stable index in full allQ array
+    const fullIdx=allQ.findIndex(x=>x.sectionId===q.sectionId&&x.q===q.q);
+    const stableKey=fullIdx>=0?"didx_"+fullIdx:"q_"+q.sectionId+"_"+q.q.slice(0,30);
+    const ovrKey=stableKey; // use stable key for all edits
     const currentAns=overrides[ovrKey]!==undefined?overrides[ovrKey]:q.answer;
     const isCrit=!!criticalQs[key];
     const isHid=!!hiddenQs[key];
@@ -2344,6 +2356,14 @@ function importCSV(event){
     allQ=loadQ();showToast(`Imported ${imported.length} questions!`,"📥");renderSecretList();
   };
   reader.readAsText(file);
+}
+
+function clearQuestionCache(){
+  if(!confirm("Clear question cache? This removes any manually imported questions but keeps your overrides and progress."))return;
+  localStorage.removeItem("mph_q2");
+  allQ=loadQ();
+  showToast("Cache cleared — questions reloaded from code","🧹");
+  renderSecretList();
 }
 
 function resetAllOverrides(){
