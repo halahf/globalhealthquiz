@@ -1309,6 +1309,12 @@ const DEFAULT_QUESTIONS=[
 /* ── PERSISTENCE ── */
 // loadOverrides defined in persistence section
 // saveOverrides defined in persistence section
+const Q_VERSION = "2";
+if(localStorage.getItem("mph_q_version") !== Q_VERSION) {
+  localStorage.removeItem("mph_q2");
+  localStorage.removeItem("mph_overrides");
+  localStorage.setItem("mph_q_version", Q_VERSION);
+}
 function loadQ(){
   const ovr=loadOverrides();
   const hiddenMap=loadHidden();
