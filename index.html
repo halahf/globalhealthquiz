@@ -802,6 +802,64 @@ const SECTIONS = [
    VERSION SYSTEM — bump APP_VERSION when changing structure
    Q_VERSION is NOT used here — teacher questions are never wiped
 ══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   DEFAULT QUESTIONS
+   — Paste each section's questions between the comments
+   — Trailing commas are fine
+   — Do not change anything outside the comment blocks
+══════════════════════════════════════════════════════ */
+const DEFAULT_QUESTIONS = [
+
+  // ── SECTION 1 · Introduction to Global Health ──────
+  // paste section 1 questions here
+
+
+  // ── SECTION 2 · Global Burden of Disease ───────────
+  // paste section 2 questions here
+
+
+  // ── SECTION 3 · Health Determinants ────────────────
+  // paste section 3 questions here
+
+
+  // ── SECTION 4 · Global Health Governance ───────────
+  // paste section 4 questions here
+
+
+  // ── SECTION 5 · Global Health Systems ──────────────
+  // paste section 5 questions here
+
+
+  // ── SECTION 6 · Infectious Diseases ────────────────
+  // paste section 6 questions here
+
+
+  // ── SECTION 7 · Non-Communicable Diseases ──────────
+  // paste section 7 questions here
+
+
+  // ── SECTION 8 · Maternal, Child & Reproductive ─────
+  // paste section 8 questions here
+
+
+  // ── SECTION 9 · Global Health Emergencies ──────────
+  // paste section 9 questions here
+
+
+  // ── SECTION 10 · Environmental & Planetary Health ──
+  // paste section 10 questions here
+
+
+  // ── SECTION 11 · Digital Health & Innovation ───────
+  // paste section 11 questions here
+
+
+  // ── SECTION 12 · Policy, Ethics & Future ───────────
+  // paste section 12 questions here
+
+
+];
+
 const APP_VERSION = "1";
 (function initVersion(){
   if(localStorage.getItem("mph_app_v") !== APP_VERSION) {
@@ -821,10 +879,18 @@ const APP_VERSION = "1";
    PERSISTENCE
 ══════════════════════════════════════════════════════ */
 function loadQ() {
-  const d = localStorage.getItem("mph_questions");
-  return d ? JSON.parse(d) : [];
+  // Hardcoded default questions (added by developer)
+  const hardcoded = DEFAULT_QUESTIONS.map((q, i) => ({...q, id:"d"+i}));
+  // Teacher-added questions (saved in localStorage)
+  const saved = localStorage.getItem("mph_questions");
+  const userAdded = saved ? JSON.parse(saved).filter(q => !String(q.id).startsWith("d")) : [];
+  return [...hardcoded, ...userAdded];
 }
-function saveQ(q) { localStorage.setItem("mph_questions", JSON.stringify(q)); }
+function saveQ(q) {
+  // Only save teacher-added questions — hardcoded ones always come from code
+  const userOnly = q.filter(x => !String(x.id).startsWith("d"));
+  localStorage.setItem("mph_questions", JSON.stringify(userOnly));
+}
 function loadGS() {
   const d = localStorage.getItem("mph_gs");
   return d ? JSON.parse(d) : {xp:0, level:1, bestStreak:0, totalCorrect:0};
